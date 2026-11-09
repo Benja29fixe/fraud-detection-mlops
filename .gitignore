@@ -1,0 +1,35 @@
+.env
+.env.*
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+data/
+models/
+mlruns/
+mlartifacts/
+mlflow.db
+*.joblib
+*.parquet
+# Données
+data/
+*.csv
+*.parquet
+
+# Modèles
+models/
+*.joblib
+
+# Secrets
+.env
+.env.*
+
+# MLflow
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Python
+__pycache__/
+.pytest_cache/
