@@ -6,16 +6,15 @@ __pycache__/
 .venv/
 venv/
 data/
-models/
+
 mlruns/
 mlartifacts/
 mlflow.db
-*.joblib
-*.parquet
+
 # Données
 data/
 *.csv
-*.parquet
+
 
 
 
