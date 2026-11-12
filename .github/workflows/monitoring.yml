@@ -33,8 +33,6 @@ jobs:
           python -m pip install pandas
 
       - name: Execute monitoring
-        id: monitor
-        continue-on-error: true
         run: python monitoring/alert_monitoring.py
 
       - name: Upload monitoring report
@@ -43,12 +41,4 @@ jobs:
         with:
           name: monitoring-report
           path: monitoring/reports/monitoring_alert.json
-          if-no-files-found: warn
-
-      - name: Fail job if alert detected
-        if: steps.monitor.outcome == 'failure'
-        run: 
-        if alerts:
-          print("ALERTE MLOps : dégradation détectée")
-        else:
-          print("Monitoring OK")
+          if-no-files-found: error
