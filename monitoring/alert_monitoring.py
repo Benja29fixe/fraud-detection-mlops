@@ -81,3 +81,7 @@ if alerts:
     print("ALERTE MLOps : dégradation du modèle détectée")
 else:
     print("Monitoring OK : aucune dégradation détectée")
+
+# Code de sortie spécifique à une alerte métier
+if alerts:
+    raise SystemExit(2)

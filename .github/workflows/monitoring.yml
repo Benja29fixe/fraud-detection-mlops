@@ -33,7 +33,19 @@ jobs:
           python -m pip install pandas
 
       - name: Execute monitoring
-        run: python monitoring/alert_monitoring.py
+        id: monitor
+        run: |
+          set +e
+          python monitoring/alert_monitoring.py
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+
+          if [ "$code" -eq 2 ]; then
+            echo "::warning::ML model degradation detected"
+            exit 0
+          fi
+
+          exit "$code"
 
       - name: Upload monitoring report
         if: always()
@@ -42,3 +54,10 @@ jobs:
           name: monitoring-report
           path: monitoring/reports/monitoring_alert.json
           if-no-files-found: error
+
+      - name: Alert summary
+        if: steps.monitor.outputs.exit_code == '2'
+        run: |
+          echo "## MLOps Alert" >> "$GITHUB_STEP_SUMMARY"
+          echo "Model performance degradation detected." >> "$GITHUB_STEP_SUMMARY"
+          echo "Check the monitoring-report artifact." >> "$GITHUB_STEP_SUMMARY"
