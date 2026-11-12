@@ -1,0 +1,12 @@
+name: Mon premier YAML
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Afficher un message
+        run: echo "Bonjour depuis GitHub Actions"
