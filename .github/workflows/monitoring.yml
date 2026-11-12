@@ -48,7 +48,7 @@ jobs:
       - name: Fail job if alert detected
         if: steps.monitor.outcome == 'failure'
         run: 
-          if alerts:
-            print("ALERTE MLOps : dégradation détectée")
-          else:
-            print("Monitoring OK")
+        if alerts:
+          print("ALERTE MLOps : dégradation détectée")
+        else:
+          print("Monitoring OK")
