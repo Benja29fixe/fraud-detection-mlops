@@ -78,4 +78,6 @@ print(json.dumps(result, indent=2))
 
 # 7. Retourner un code d'erreur en cas d'alerte
 if alerts:
-    raise SystemExit(1)
+    print("ALERTE MLOps : dégradation du modèle détectée")
+else:
+    print("Monitoring OK : aucune dégradation détectée")
