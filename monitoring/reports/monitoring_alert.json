@@ -1,0 +1,17 @@
+{
+  "status": "alert",
+  "alerts": [
+    {
+      "metric": "recall",
+      "reference": 0.7692307692307693,
+      "current": 0.6153846153846154,
+      "drop": 0.15384615384615385
+    },
+    {
+      "metric": "precision",
+      "reference": 0.967741935483871,
+      "current": 0.5714285714285714,
+      "drop": 0.3963133640552996
+    }
+  ]
+}
