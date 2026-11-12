@@ -4,11 +4,20 @@ import json
 
 import pandas as pd
 
+import os
+
 ROOT = Path(__file__).resolve().parents[1]
 
 REPORT_DIR = ROOT / "monitoring" / "reports"
 
-METRICS_PATH = REPORT_DIR / "performance_metrics.csv"
+METRICS_PATH = Path(
+    os.getenv(
+        "MONITORING_METRICS_PATH",
+        str(REPORT_DIR / "performance_metrics.csv")
+    )
+)
+
+
 ALERT_PATH = REPORT_DIR / "monitoring_alert.json"
 
 # 1. Charger les performances
