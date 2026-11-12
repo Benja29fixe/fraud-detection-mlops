@@ -1,0 +1,50 @@
+
+name: MLOps Monitoring
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  monitoring:
+    runs-on: ubuntu-latest
+
+    env:
+      MONITORING_METRICS_PATH: monitoring/fixtures/performance_metrics_demo.csv
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas
+
+      - name: Execute monitoring
+        id: monitor
+        continue-on-error: true
+        run: python monitoring/alert_monitoring.py
+
+      - name: Upload monitoring report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitoring-report
+          path: monitoring/reports/monitoring_alert.json
+          if-no-files-found: warn
+
+      - name: Fail job if alert detected
+        if: steps.monitor.outcome == 'failure'
+        run: exit 1
