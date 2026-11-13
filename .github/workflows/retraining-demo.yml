@@ -2,6 +2,10 @@
 name: XGBoost Synthetic Retraining Demo
 
 on:
+  push:
+    branches:
+      - main
+
   workflow_dispatch:
 
 permissions:
