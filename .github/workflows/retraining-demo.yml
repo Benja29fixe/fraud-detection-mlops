@@ -42,7 +42,25 @@ jobs:
       - name: Decide model promotion
         run: |
           python retraining/decide_promotion.py
-          
+
+      - name: Read promotion decision
+        id: promotion
+        shell: bash
+        run: |
+          decision=$(python -c "import json; print(json.load(open('models/synthetic/promotion_decision.json'))['decision'])")
+          echo "decision=$decision" >> "$GITHUB_OUTPUT"
+          echo "Promotion decision: $decision"
+
+      - name: Build candidate Docker image
+        if: steps.promotion.outputs.decision == 'PROMOTE'
+        run: |
+          docker build \
+            -f deployment_demo/Dockerfile \
+            -t fraud-synthetic-demo:${{ github.sha }} \
+            .
+
+
+
       - name: Upload model artifacts
         if: always()
         uses: actions/upload-artifact@v4
