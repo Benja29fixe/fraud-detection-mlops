@@ -1,0 +1,5 @@
+promotion:
+  min_recall: 0.70
+  min_precision: 0.85
+  max_recall_drop: 0.02
+  require_f1_improvement: true
